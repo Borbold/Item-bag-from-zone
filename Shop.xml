@@ -1,0 +1,8 @@
+<Panel position='0 0 -30' rotation='0 0 180'>
+	<HorizontalLayout offsetXY='0 50' height='30' width='200' spacing='5'>
+		<Button id='upload' image='upload' onClick=''>
+		</Button>
+		<Button id='fold' image='fold' onClick=''>
+		</Button>
+	</HorizontalLayout>
+</Panel>

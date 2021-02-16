@@ -1,0 +1,26 @@
+<Panel position='0 0 -425' rotation='0 0 180'>
+	<VerticalLayout id='memoryAction' height='250' width='350' spacing='20'>
+		<Button onClick='Setup' color='#000000' textColor='#ffffff' fontSize='60'>
+		Настроить
+		</Button>
+		<Button id='nameTransfer' onClick='' color='#000000' textColor='#ffffff' resizeTextMaxSize='80'
+			resizeTextForBestFit='true'>
+		</Button>
+	</VerticalLayout>
+	<VerticalLayout id='setupAction' height='600' width='350' spacing='10' active='false'>
+		<Button id='apply' onClick='Apply' color='#000000' textColor='#ffffff' fontSize='60'>
+		Выбрать
+		</Button>
+		<Button onClick='Cancel' color='#000000' textColor='#ffffff' fontSize='60'>
+		Отмена
+		</Button>
+		<Button onClick='Reset' color='#000000' textColor='#ffffff' fontSize='60'>
+		Сбросить
+		</Button>
+		<InputField id='inputGuid' placeholder='GUID' onEndEdit='SetGUID' color='#000000' textColor='#ffffff' resizeTextMaxSize='70'
+			characterValidation='Alphanumeric' resizeTextForBestFit='true'>
+		</InputField>
+		<InputField id='inputName' placeholder='Название' onEndEdit='SetName' color='#000000' textColor='#ffffff' fontSize='70'>
+		</InputField>
+	</VerticalLayout>
+</Panel>
