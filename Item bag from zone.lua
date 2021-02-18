@@ -32,7 +32,9 @@ function TakeObjectsInZone()
     if(self.getDescription() ~= nil) then
 	    local zone = getObjectFromGUID(self.getDescription())
         for i,item in pairs(zone.getObjects()) do
-            Selection(i, item)
+            if(not item.getLock()) then
+              Selection(i, item)
+            end
         end
     else
         printToAll("Вы не выбрали зону для приема предметов!", "Red")
