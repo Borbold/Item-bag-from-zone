@@ -1,4 +1,4 @@
-function updateSave()
+п»їfunction updateSave()
     local data_to_save = {["ml"]=memoryList}
     saved_data = JSON.encode(data_to_save)
     self.script_state = saved_data
@@ -29,38 +29,39 @@ function buttonClick_setup()
 end
 
 function TakeObjectsInZone()
-    if(self.getDescription() ~= nil) then
-	    local zone = getObjectFromGUID(self.getDescription())
-        for i,item in pairs(zone.getObjects()) do
-            if(not item.getLock()) then
-              Selection(i, item)
-            end
-        end
-    else
-        printToAll("Вы не выбрали зону для приема предметов!", "Red")
+  if(self.getGMNotes() ~= nil) then
+	  local zone = getObjectFromGUID(self.getGMNotes())
+    for i,item in pairs(zone.getObjects()) do
+      if(not item.getLock() or item.getGMNotes():find("PutObjectBag")) then
+        Selection(i, item)
+      end
     end
+  else
+    printToAll("Р’С‹ РЅРµ РІС‹Р±СЂР°Р»Рё Р·РѕРЅСѓ РґР»СЏ РїСЂРёРµРјР° РїСЂРµРґРјРµС‚РѕРІ!", "Red")
+  end
 end
 
 function Selection(index, obj)
-    local color = {0,1,0,0.6}
-    if memoryList[obj.getGUID()] == nil then
-        local pos, rot = obj.getPosition(), obj.getRotation()
-        memoryList[obj.getGUID()] = {
-            pos={x=round(pos.x,4), y=round(pos.y,4), z=round(pos.z,4)},
-            rot={x=round(rot.x,4), y=round(rot.y,4), z=round(rot.z,4)},
-            lock=obj.getLock()
-        }
-    end
+  local color = {0,1,0,0.6}
+  if memoryList[obj.getGUID()] == nil then
+    local pos, rot = obj.getPosition(), obj.getRotation()
+    memoryList[obj.getGUID()] = {
+      pos={x=round(pos.x,4), y=round(pos.y,4), z=round(pos.z,4)},
+      rot={x=round(rot.x,4), y=round(rot.y,4), z=round(rot.z,4)},
+      lock=obj.getLock()
+    }
+    obj.highlightOn({0, 1, 0})
+  end
 end
 
 function buttonClick_cancel()
-    memoryList = memoryListBackup
-    self.clearButtons()
-    if next(memoryList) == nil then
-        createMemoryActionButtons(true)
-    else
-        createMemoryActionButtons(false)
-    end
+  memoryList = memoryListBackup
+  self.clearButtons()
+  if next(memoryList) == nil then
+    createMemoryActionButtons(true)
+  else
+    createMemoryActionButtons(false)
+  end
 end
 
 function buttonClick_submit()
@@ -83,17 +84,17 @@ end
 
 function createSetupActionButtons()
     self.createButton({
-        label="Отмена", click_function="buttonClick_cancel", function_owner=self,
+        label="РћС‚РјРµРЅР°", click_function="buttonClick_cancel", function_owner=self,
         position={0, buttonPositionY, 0}, height=buttonHeight, width=buttonWidth,
         font_size=buttonFontSize, color={0,0,0}, font_color={1,1,1}
     })
     self.createButton({
-        label="Выбрать", click_function="buttonClick_submit", function_owner=self,
+        label="Р’С‹Р±СЂР°С‚СЊ", click_function="buttonClick_submit", function_owner=self,
         position={0, buttonPositionY, -1}, height=buttonHeight, width=buttonWidth,
         font_size=buttonFontSize, color={0,0,0}, font_color={1,1,1}
     })
     self.createButton({
-        label="Сбросить", click_function="buttonClick_reset", function_owner=self,
+        label="РЎР±СЂРѕСЃРёС‚СЊ", click_function="buttonClick_reset", function_owner=self,
         position={0, buttonPositionY, 1}, height=buttonHeight, width=buttonWidth,
         font_size=buttonFontSize, color={0,0,0}, font_color={1,1,1}
     })
@@ -101,7 +102,7 @@ end
 
 function createMemoryActionButtons(showOnlySelection)
     self.createButton({
-        label="Выбрать", click_function="buttonClick_setup", function_owner=self,
+        label="Р’С‹Р±СЂР°С‚СЊ", click_function="buttonClick_setup", function_owner=self,
         position={0, buttonPositionY, -1}, height=buttonHeight, width=buttonWidth,
         font_size=buttonFontSize, color={0,0,0}, font_color={1,1,1}
     })
@@ -109,12 +110,12 @@ function createMemoryActionButtons(showOnlySelection)
     if(showOnlySelection == true) then return end
 
     self.createButton({
-        label="Разложить", click_function="buttonClick_place", function_owner=self,
+        label="Р Р°Р·Р»РѕР¶РёС‚СЊ", click_function="buttonClick_place", function_owner=self,
         position={0, buttonPositionY, 1}, height=buttonHeight, width=buttonWidth,
         font_size=buttonFontSize, color={0,0,0}, font_color={1,1,1}
     })
     self.createButton({
-        label="Сложить", click_function="buttonClick_recall", function_owner=self,
+        label="РЎР»РѕР¶РёС‚СЊ", click_function="buttonClick_recall", function_owner=self,
         position={0, buttonPositionY, 0}, height=buttonHeight, width=buttonWidth,
         font_size=buttonFontSize, color={0,0,0}, font_color={1,1,1}
     })
