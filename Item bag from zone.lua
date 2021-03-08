@@ -32,7 +32,7 @@ function TakeObjectsInZone()
   if(self.getGMNotes() ~= nil) then
 	  local zone = getObjectFromGUID(self.getGMNotes())
     for i,item in pairs(zone.getObjects()) do
-      if(not item.getLock() or item.getGMNotes():find("PutObjectBag")) then
+      if(not item.getGMNotes():find("NotPutObjectBag") and item.interactable) then
         Selection(i, item)
       end
     end
