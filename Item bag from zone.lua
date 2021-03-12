@@ -133,7 +133,8 @@ function buttonClick_place()
             for _, bagObj in ipairs(bagObjList) do
                 if bagObj.guid == guid then
                     local item = self.takeObject({
-                        guid=guid, position=entry.pos, rotation=entry.rot,
+                      smooth = false,
+                      guid=guid, position=entry.pos, rotation=entry.rot,
                     })
                     item.setLock(entry.lock)
                     break
